@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigWatcher", "ConfigWatcher\ConfigWatcher.csproj", "{4A35908E-14CB-4C88-ABF9-1D55BB1EE095}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4A35908E-14CB-4C88-ABF9-1D55BB1EE095}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A35908E-14CB-4C88-ABF9-1D55BB1EE095}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A35908E-14CB-4C88-ABF9-1D55BB1EE095}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A35908E-14CB-4C88-ABF9-1D55BB1EE095}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

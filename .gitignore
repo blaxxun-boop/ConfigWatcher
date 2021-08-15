@@ -1,0 +1,6 @@
+bin
+obj
+/packages
+ConfigWatcher.sln.DotSettings.user
+.idea
+.vs

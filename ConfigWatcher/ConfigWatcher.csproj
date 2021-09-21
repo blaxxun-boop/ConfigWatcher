@@ -51,13 +51,13 @@
         </When>
     </Choose>
     <ItemGroup>
-        <Reference Include="0Harmony, Version=2.4.2.0, Culture=neutral, PublicKeyToken=null">
+        <Reference Include="0Harmony, Version=2.5.4.0, Culture=neutral, PublicKeyToken=null">
           <HintPath>$(GamePath)\BepInEx\core\0Harmony.dll</HintPath>
         </Reference>
-        <Reference Include="BepInEx, Version=5.4.11.0, Culture=neutral, PublicKeyToken=null">
+        <Reference Include="BepInEx, Version=5.4.15.0, Culture=neutral, PublicKeyToken=null">
           <HintPath>$(GamePath)\BepInEx\core\BepInEx.dll</HintPath>
         </Reference>
-        <Reference Include="BepInEx.Preloader, Version=5.4.11.0, Culture=neutral, PublicKeyToken=null">
+        <Reference Include="BepInEx.Preloader, Version=5.4.15.0, Culture=neutral, PublicKeyToken=null">
           <HintPath>$(GamePath)\BepInEx\core\BepInEx.Preloader.dll</HintPath>
         </Reference>
         <Reference Include="Mono.Cecil, Version=0.10.4.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e">

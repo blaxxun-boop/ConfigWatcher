@@ -15,10 +15,10 @@ namespace ConfigWatcher
 {
 	public class ConfigWatcher
 	{
-		public static IEnumerable<string> TargetDLLs { get; } = new string[0];
+		public static IEnumerable<string> TargetDLLs { get; } = Array.Empty<string>();
 		public static void Patch(AssemblyDefinition assembly) { }
 
-		private static readonly Dictionary<string, WeakReference<ConfigFile>> watchedFileMap = new();
+		private static readonly Dictionary<string, List<WeakReference<ConfigFile>>> watchedFileMap = new();
 		private static readonly List<WeakReference<ConfigFile>> uninitializedConfigs = new();
 		private static bool initialized = false;
 
@@ -103,19 +103,31 @@ namespace ConfigWatcher
 			configFileWatcher.SynchronizingObject = ThreadingHelper.SynchronizingObject;
 			configFileWatcher.EnableRaisingEvents = true;
 
-			watchedFileMap.Add(configFile.ConfigFilePath, configFileRef);
+			if (!watchedFileMap.TryGetValue(configFile.ConfigFilePath, out List<WeakReference<ConfigFile>> configFileList))
+			{
+				configFileList = watchedFileMap[configFile.ConfigFilePath] = new List<WeakReference<ConfigFile>>();
+			}
+			configFileList.Add(configFileRef);
 		}
 
 		private static void configFileEvent(object sender, FileSystemEventArgs e)
 		{
-			if (!watchedFileMap[e.FullPath].TryGetTarget(out ConfigFile configFile))
+			List<WeakReference<ConfigFile>> configFileRefs = watchedFileMap[e.FullPath];
+			foreach (WeakReference<ConfigFile> configFileRef in configFileRefs)
 			{
-				watchedFileMap.Remove(e.FullPath);
-				((FileSystemWatcher)sender).EnableRaisingEvents = false;
-			}
-			else if (File.Exists(configFile.ConfigFilePath))
-			{
-				configFile.Reload();
+				if (!configFileRef.TryGetTarget(out ConfigFile configFile))
+				{
+					configFileRefs.Remove(configFileRef);
+					if (configFileRefs.Count == 0)
+					{
+						watchedFileMap.Remove(e.FullPath);
+					}
+					((FileSystemWatcher)sender).EnableRaisingEvents = false;
+                }
+                else if (File.Exists(configFile.ConfigFilePath))
+                {
+                	configFile.Reload();
+                }
 			}
 		}
 	}
